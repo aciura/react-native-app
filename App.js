@@ -72,7 +72,7 @@ export default class App extends React.Component {
       }),
     }));
 
-  submit = () => {
+  submit = () => 
     this.setState(state => ({
       actions: state.actions.concat({
         timestamp: new Date().getTime(),
@@ -84,10 +84,11 @@ export default class App extends React.Component {
         done:false, 
         timestamp:new Date().getTime(),
       }),
-    }));
-    AsyncStorage.setItem(storageKey, JSON.stringify(this.state));
-  }
-
+    }), 
+    () => {
+      AsyncStorage.setItem(storageKey, JSON.stringify(this.state));
+    });    
+  
   noteDoneChanged = (value, note) => {
     console.log(`noteDoneChanged:${note.title}, value:${value}`)
     const newNote = Object.assign({}, note, {done:value});
