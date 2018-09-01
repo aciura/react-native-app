@@ -15,9 +15,12 @@ export default class App extends React.Component {
     ]
   }
 
-  // componentWillMount() {
-  //   AsyncStorage.ge
-  // }
+  async componentWillMount() {
+    let storage = JSON.parse(await AsyncStorage.getItem(storageKey));
+    if (storage && storage.notes) { 
+      this.setState({notes: storage.notes})
+    }
+  }
 
   render() {
     return (
@@ -69,7 +72,7 @@ export default class App extends React.Component {
       }),
     }));
 
-  submit = () =>
+  submit = () => {
     this.setState(state => ({
       actions: state.actions.concat({
         timestamp: new Date().getTime(),
@@ -82,6 +85,8 @@ export default class App extends React.Component {
         timestamp:new Date().getTime(),
       }),
     }));
+    AsyncStorage.setItem(storageKey, JSON.stringify(this.state));
+  }
 
   noteDoneChanged = (value, note) => {
     console.log(`noteDoneChanged:${note.title}, value:${value}`)
