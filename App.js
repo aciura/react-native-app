@@ -56,7 +56,7 @@ class HomeScreen extends React.Component {
               <Text>Note {note.title}</Text>
               <Button key={note.title}
                 title={`Show note ${note.title}`}
-                onPress={() => this.props.navigation.navigate('Note', note)}
+                onPress={() => this.props.navigation.navigate('Note', {note})}
               />
 
           </View>
@@ -104,21 +104,36 @@ class HomeScreen extends React.Component {
   }
 }
 
-const NoteScreen = ({ navigation }) => (  
-  <View>
-    <Text>Note {navigation.state.params.id}</Text>
-    <Text>Note {navigation.getParam('title', 'no title')}</Text>
-    <Text>Text {navigation.getParam('text', 'no text')}</Text>
-    <Text>Created: {navigation.getParam('timestamp', 'no time')}</Text>
-    <Switch style={styles.item} value={navigation.getParam('done', false)} 
+const NoteScreen = ({ navigation }) => {  
+  const note = navigation.state.params.note;
+  return <View>
+    <Text>Title: {note.title}</Text>    
+    <Text>Text:  {note.text}</Text>
+    <Text>Created: {note.timestamp}</Text>
+    <Switch style={styles.item} value={note.done} 
       // onValueChange={(value) => this.noteDoneChanged(value, note)}
     />
 
+    <Button title="Edit" onPress={() => navigation.navigate('EditNote', note)}/>
     <Button title="Go back" onPress={() => navigation.goBack()} />
 
   </View>
-);
-NoteScreen.navigationOptions = ({ navigation }) => ({title: `Item #${navigation.getParam('id')}`});
+};
+NoteScreen.navigationOptions = ({ navigation }) => ({title: `${navigation.getParam('title')}`});
+
+class EditNoteScreen extends React.Component {
+  
+  render() {
+    <TextInput
+              placeholder="Title"
+              returnKeyType="done"            
+              value={this.state.value}
+              onChangeText={this.textChanged}
+              onSubmitEditing={this.submit}            
+            />
+  }
+}
+EditNoteScreen.navigationOptions = ({ navigation }) => ({title: `EDIT ${navigation.getParam('title')}`});
 
 const Navigator = createStackNavigator({
     Home: {
@@ -127,6 +142,9 @@ const Navigator = createStackNavigator({
     Note: {
       screen: NoteScreen,
     },
+    EditNote: {
+      screen: EditNoteScreen,
+    }
   },
   {
     initialRouteName: 'Home',
