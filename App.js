@@ -2,12 +2,20 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default class App extends React.Component {
+  state = {
+    notes: [ 
+      {title:'note1', text:'text of note1'}, 
+      {title:'note2', text:'text of note2. very interesting'},
+      
+    ]
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        <Text>&nbsp;</Text>
+        <Text>Note</Text>
+        <Text>Shake phone!</Text>
       </View>
     );
   }
