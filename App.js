@@ -1,10 +1,15 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, Switch, ScrollView, AsyncStorage } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Switch, ScrollView, AsyncStorage, Button } from 'react-native';
 import { Constants } from 'expo';
+import { createStackNavigator } from 'react-navigation';
 
 const storageKey = 'cloudtech:notesApp';
 
-export default class App extends React.Component {
+class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Home',
+  };
+
   state = {
     value: '',
     actions: [],
@@ -28,12 +33,12 @@ export default class App extends React.Component {
         <View style={styles.container}>
           <TextInput
             placeholder="Enter text"
-            returnKeyType="done"
+            returnKeyType="done"            
             value={this.state.value}
             onChangeText={this.textChanged}
-            onSubmitEditing={this.submit}
-            
+            onSubmitEditing={this.submit}            
           />
+
           <View style={styles.container}>
             {this.state.actions.map(({ timestamp, type, value }) => (
               <Text key={timestamp}>
@@ -49,10 +54,10 @@ export default class App extends React.Component {
           <View key={note.title} style={styles.item}>                      
               
               <Text>Note {note.title}</Text>
-              <Text>{note.text}</Text>  
-              <Text>Created:{note.timestamp}</Text>
-              <Switch style={styles.item} value={note.done} 
-                onValueChange={(value) => this.noteDoneChanged(value, note)}></Switch>
+              <Button key={note.title}
+                title={`Show note ${note.title}`}
+                onPress={() => this.props.navigation.navigate('Note', note)}
+              />
 
           </View>
         ))}
@@ -96,6 +101,42 @@ export default class App extends React.Component {
     this.setState(prevState => ({
       notes: prevState.notes.map(n => n.title === newNote.title ? newNote : n),    
     }));
+  }
+}
+
+const NoteScreen = ({ navigation }) => (  
+  <View>
+    <Text>Note {navigation.state.params.id}</Text>
+    <Text>Note {navigation.getParam('title', 'no title')}</Text>
+    <Text>Text {navigation.getParam('text', 'no text')}</Text>
+    <Text>Created: {navigation.getParam('timestamp', 'no time')}</Text>
+    <Switch style={styles.item} value={navigation.getParam('done', false)} 
+      // onValueChange={(value) => this.noteDoneChanged(value, note)}
+    />
+
+    <Button title="Go back" onPress={() => navigation.goBack()} />
+
+  </View>
+);
+NoteScreen.navigationOptions = ({ navigation }) => ({title: `Item #${navigation.getParam('id')}`});
+
+const Navigator = createStackNavigator({
+    Home: {
+      screen: HomeScreen,
+    },
+    Note: {
+      screen: NoteScreen,
+    },
+  },
+  {
+    initialRouteName: 'Home',
+  }
+);
+
+
+export default class App extends React.Component {
+  render() {
+    return <Navigator />;
   }
 }
 
