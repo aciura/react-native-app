@@ -2,11 +2,19 @@
 ## Tools used for this project
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
+### React Native Docs https://facebook.github.io/react-native/ 
+Build native mobile apps using JavaScript and React
+React Native lets you build mobile apps using only JavaScript. It uses the same design as React, letting you compose a rich mobile UI from declarative components.
+
 ### Meetup Slides & Tasks
 https://kapke.github.io/workshops/devmeeting-react-native/
 
 ### Using Expo https://expo.io/ 
 Expo is a free and open source toolchain built around React Native to help you build native iOS and Android projects using JavaScript and React.
+
+### React Native Navigation 
+Routing and navigation for your React Native apps
+https://reactnavigation.org/
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
 
