@@ -1,9 +1,14 @@
-This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
-Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
+## Tools used for this project
+This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 ### Meetup Slides & Tasks
 https://kapke.github.io/workshops/devmeeting-react-native/
+
+### Using Expo https://expo.io/ 
+Expo is a free and open source toolchain built around React Native to help you build native iOS and Android projects using JavaScript and React.
+
+Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
 
 ## Table of Contents
 
